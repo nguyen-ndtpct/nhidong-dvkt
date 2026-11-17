@@ -974,7 +974,7 @@ a[href^="tel:"]:not([class]),.nw{white-space:nowrap}
 /* ===== CÀI ĐẶT =====
    HIEN_GIA = false : ẩn giá, hiện "Liên hệ để được báo giá"
    HIEN_GIA = true  : hiện giá các gói (chỉ bật khi giá đã được phê duyệt) */
-var HIEN_GIA = false;   /* Bản công khai: giá đã được gỡ khỏi mã nguồn; điền lại khi giá được phê duyệt. */
+var HIEN_GIA = false;   /* Bản công khai: giá đã được gỡ khỏi mã nguồn. */
 
 var KHAM = 'Khám chuyên khoa', DG = 'Đánh giá – sàng lọc', XN = 'Xét nghiệm', HA = 'Chẩn đoán hình ảnh – thăm dò';
 var MAU_NHOM = {}; MAU_NHOM[KHAM] = '#0f9943'; MAU_NHOM[DG] = '#ffcf4a'; MAU_NHOM[XN] = '#ff9f8a'; MAU_NHOM[HA] = '#7f9cf5';
@@ -1302,20 +1302,48 @@ function renderCG(){
    khi phụ huynh hỏi theo tên bác sĩ hoặc theo ngày, buổi khám. */
 var NHOM_CG = [
   {id:'so-sinh', ten:'trẻ sơ sinh, sinh non', bs:['diep-loan'],
-   tu:['so sinh','sinh non','thieu thang','vang da so sinh','moi sinh','moi de','nhe can luc sinh','sinh nhe can']},
+   tu:['so sinh','sinh non','thieu thang','vang da so sinh','moi sinh','moi de','nhe can luc sinh','sinh nhe can','sanh non','de non','sanh thieu thang','moi sanh','vang da sau sanh','sanh nhe can']},
   {id:'tieu-hoa', ten:'bệnh tiêu hóa', bs:['thai-thanh-lam'],
-   tu:['tieu hoa','dau bung','tieu chay','tao bon','bi non','hay non','non oi','non tro','buon non','bi oi','hay oi','oi sua','trao nguoc','da day','noi soi','di ngoai','phan song','day hoi','chuong bung']},
-  {id:'sxh', ten:'sốt xuất huyết', bs:['nguyen-huynh-nhat-truong'], tu:[' sxh ','dengue']},
+   tu:['tieu hoa','dau bung','tieu chay','tao bon','bi non','hay non','non oi','non tro','buon non','bi oi','hay oi','oi sua','trao nguoc','da day','noi soi','di ngoai','phan song','day hoi','chuong bung','di cau','tieu long','phan long','di long','bi bon','oi nhieu','oi mua','tro sua','kho tieu','dau bao tu','bao tu','an khong tieu','non nhieu']},
+  {id:'sxh', ten:'sốt xuất huyết', bs:['nguyen-huynh-nhat-truong'], tu:[' sxh ','dengue',' sot xh ']},
   {id:'hoi-suc', ten:'tái khám sau điều trị hồi sức, chống độc', bs:['tran-huynh-viet-trang'],
    tu:['hoi suc','chong doc','sau ngo doc','icu']},
   {id:'chung', ten:'khám nhi chung', bs:['nguyen-thanh-nam','truong-cam-trinh','nguyen-thi-bich-anh'],
-   tu:[' ho ','ho khan','ho dam',' sot ','so mui','nghet mui','viem hong','viem phoi','kho khe','hen suyen','phat ban','noi man','di ung','tong quat','kham chung','kiem tra suc khoe','chua biet kham','khong biet kham']}
+   tu:[' ho ','ho khan','ho dam',' sot ','so mui','nghet mui','viem hong','viem phoi','kho khe','hen suyen','phat ban','noi man','di ung','tong quat','kham chung','kiem tra suc khoe','chua biet kham','khong biet kham','cam cum','cam lanh','cam sot','nong sot','sot nong','chay mui','ho keo dai','viem phe quan','viem tieu phe quan','viem amidan','hat hoi','kham suc khoe']}
 ];
 var SOS_CG = ['co giat','kho tho','tho rit','tho meo','tho nhanh','tim tai','tim moi','li bi','lu du','hon me','ngat xiu','bat tinh','khong tinh','bo bu','khong bu duoc',
   'non ra mau','oi ra mau','ra mau','chay mau','cham do','xuat huyet','phan den','di cau ra mau','tay chan lanh','dau bung du doi','hoc di vat','mac nghen','hoc xuong',
   'uong nham','ngo doc','duoi nuoc','bi bong','dap dau'];
 var THU_CG = [[' thu hai ',' thu 2 ',' t2 '],[' thu ba ',' thu 3 ',' t3 '],[' thu tu ',' thu 4 ',' t4 '],[' thu nam ',' thu 5 ',' t5 '],[' thu sau ',' thu 6 ',' t6 ']];
 var CHIP_CG = ['Bé 3 tuần tuổi, sinh non', 'Bé hay đau bụng, táo bón', 'Tái khám sau sốt xuất huyết', 'Bé ho, sốt, muốn khám chung', 'Chiều nay có bác sĩ nào khám?', 'Sáng thứ Sáu có bác sĩ nào?'];
+/* Câu hỏi thêm: lấy từ trang "Câu hỏi thêm" của bảng Google Sheets (nhân viên tự thêm). Dưới đây là bản dự phòng.
+   Mỗi câu: mau = câu hỏi mẫu hiện ở "Hỏi nhanh" (để trống thì không hiện), tu = từ khóa cách nhau dấu phẩy,
+   traLoi = câu trả lời, nhom = nhóm bác sĩ gợi ý (Sơ sinh, Tiêu hóa, Sốt xuất huyết, Hồi sức – chống độc, Khám nhi chung). */
+var HOI_CG = [
+  {mau:'Bé sanh non nên khám bác sĩ nào?', tu:'sanh non, de non, sanh thieu thang, moi sanh, moi de', traLoi:'Bé sinh non hoặc mới sinh có thể đăng ký khám với bác sĩ chuyên khoa Sơ sinh:', nhom:'Sơ sinh'},
+  {mau:'Khám chuyên gia đăng ký thế nào?', tu:'dang ky kham chuyen gia, dang ky chuyen gia, dat lich chuyen gia, hen kham chuyen gia, kham chuyen gia dang ky', traLoi:'Phụ huynh gọi đăng ký trước qua số 0292 3748 361 hoặc 0911 440 258 trong giờ hành chính, thứ Hai đến thứ Sáu, hoặc đăng ký trực tiếp tại quầy thông tin Khoa Khám theo yêu cầu.', nhom:''},
+  {mau:'Phí khám chuyên gia bao nhiêu?', tu:'phi kham chuyen gia, gia kham chuyen gia, kham chuyen gia bao nhieu tien, chuyen gia bao nhieu tien, chuyen gia het bao nhieu', traLoi:'Phụ huynh vui lòng gọi 0292 3748 361 hoặc 0911 440 258 để được báo phí khám chuyên gia.', nhom:''}
+];
+function timHoiCG(q){
+  var n = nCG(q), best = null, dai = 0;
+  HOI_CG.forEach(function(h){
+    String(h.tu || '').split(/[,;\n]/).forEach(function(k){ var kk = nCG(k).trim(); if (kk.length >= 3 && n.indexOf(' ' + kk + ' ') !== -1 && kk.length > dai) { best = h; dai = kk.length; } });
+  });
+  return best;
+}
+function nhomCuaTen(t){ var n = nCG(t); return NHOM_CG.filter(function(g){ return coTu(n, GOC_NHOM_CG[g.id] || []); }); }
+function dsTheBSCG(ids){
+  var st = trangThaiCG();
+  var thuTu = function(id){ var b = buoiCua(id).filter(function(x){ return st.cu || tinhBuoi(x) !== 'qua'; })[0]; return b ? b.i * 2 + (b.b === 'chieu' ? 1 : 0) : 99; };
+  var ds = ids.slice(); if (!st.cu) ds.sort(function(a, b){ return thuTu(a) - thuTu(b); });
+  return '<div class="cg-tv-docs">' + ds.map(function(id){ return bsTheThe(id, buoiCua(id), st.cu); }).join('') + '</div>';
+}
+function veChipCG(){
+  var el = $('cg-tv-chips'); if (!el) return;
+  var ds = CHIP_CG.slice();
+  HOI_CG.forEach(function(h){ var m = String(h.mau || '').trim(); if (m && ds.indexOf(m) === -1) ds.push(m); });
+  el.innerHTML = ds.slice(0, 12).map(function(c){ return '<button type="button" class="chip">' + esc(c) + '</button>'; }).join('');
+}
 var NUT_GOI_CG = '<div class="cg-tv-acts"><a class="btn btn-green btn-sm" href="tel:02923748361">Gọi 0292 3748 361</a><a class="btn btn-line btn-sm" href="tel:0911440258">Gọi 0911 440 258</a></div>';
 
 function nCG(s){ return ' ' + String(s).toLowerCase().replace(/đ/g, 'd').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ') + ' '; }
@@ -1341,7 +1369,7 @@ function hieuCG(q){
   var st = trangThaiCG(), r = { nhom: [], bs: [], buoi: null, ngay: null, cuoiTuan: false };
   Object.keys(BAC_SI).forEach(function(id){ var w = nCG(BAC_SI[id].ten).trim().split(' '); if (n.indexOf(' ' + w.slice(-2).join(' ') + ' ') !== -1) r.bs.push(id); });
   NHOM_CG.forEach(function(g){ if (coTu(n, g.tu)) r.nhom.push(g); });
-  var m = n.match(/ (\d+) (ngay|tuan) /);
+  var m = n.match(/ (?:be|con|chau|em be|be nha toi|con toi) (\d+) (ngay|tuan) /) || n.match(/ (\d+) (ngay|tuan) tuoi /);
   if (m && ((m[2] === 'ngay' && +m[1] <= 28) || (m[2] === 'tuan' && +m[1] <= 4)) && r.nhom.indexOf(NHOM_CG[0]) === -1) r.nhom.unshift(NHOM_CG[0]);
   if (/ sang /.test(n)) r.buoi = 'sang'; else if (/ chieu /.test(n)) r.buoi = 'chieu';
   THU_CG.forEach(function(ks, i){ if (coTu(n, ks)) r.ngay = i; });
@@ -1358,11 +1386,18 @@ function bsTheThe(id, buoi, cu){
     var t = tinhBuoi(x), cls = '';
     if (t === 'qua') cls = 'qua'; else if (first) { cls = 'next'; first = false; }
     return '<i class="' + cls + '">' + esc(tenBuoi(x)) + (t === 'dang' ? ', đang khám' : t === 'qua' ? ', đã qua' : '') + '</i>';
-  }).join('');
+  }).join('') || '<i class="qua">Không có lịch tuần này</i>';
   return '<div class="cg-tv-doc">' + av + '<div><b>' + esc(b.hv + ' ' + b.ten) + '</b><small>' + esc(b.cv) + '</small><div class="cg-tv-slots">' + pills + '</div></div></div>';
 }
 function traLoiCG(q){
   var r = hieuCG(q), st = trangThaiCG();
+  var hq = r.sos ? null : timHoiCG(q);
+  if (hq) {
+    var gs = hq.nhom ? nhomCuaTen(hq.nhom) : [], idq = [];
+    gs.forEach(function(g){ g.bs.forEach(function(id){ if (idq.indexOf(id) === -1) idq.push(id); }); });
+    return { html: (hq.traLoi ? '<p>' + esc(hq.traLoi) + '</p>' : '<p>Phụ huynh có thể đăng ký khám với:</p>') +
+      (idq.length ? dsTheBSCG(idq) : gs.length ? '<p>Chưa có bác sĩ nhóm này trong lịch tuần ' + esc(tuanCG()) + '.</p>' : '') + NUT_GOI_CG };
+  }
   if (r.sos) return { sos: true, html: '<p><b>Bé có dấu hiệu cần cấp cứu.</b> Phụ huynh đưa bé ngay đến Khoa Cấp cứu (hoạt động 24/24), không chờ lịch khám chuyên gia. Điện thoại <a href="tel:02923748356">0292 3748 356</a>. Bé nguy kịch mà gia đình không tự đưa đi được, gọi <a href="tel:115">115</a>.</p>' };
   var coThoiGian = r.buoi !== null || r.ngay !== null, ids = [], cach = '';
   if (r.bs.length) { ids = r.bs; cach = 'ten'; }
@@ -1405,7 +1440,7 @@ function initTuVanCG(){
     log.scrollTop = Math.max(0, d.offsetTop - log.offsetTop - 8);
   };
   them('bot rich', '<p>Chào phụ huynh. Phụ huynh cho mình biết bé bao nhiêu tuổi và đang gặp vấn đề gì, hoặc muốn khám buổi nào. Mình gợi ý bác sĩ chuyên gia theo chuyên khoa và buổi khám gần nhất trong tuần <span class="cg-tv-tuan">' + esc(tuanCG()) + '</span>.</p><p>Bé có dấu hiệu nặng như co giật, khó thở, li bì: đưa ngay đến Khoa Cấp cứu.</p>');
-  $('cg-tv-chips').innerHTML = CHIP_CG.map(function(c){ return '<button type="button" class="chip">' + esc(c) + '</button>'; }).join('');
+  veChipCG();
   $('cg-tv-chips').addEventListener('click', function(e){ var c = e.target.closest('.chip'); if (c) hoi(c.textContent); });
   form.addEventListener('submit', function(e){ e.preventDefault(); var q = inp.value; inp.value = ''; hoi(q); });
 }
@@ -1429,12 +1464,17 @@ function apDungLichCG(d){
       var id = maBacSiCG(t); if (!bs[id]) bs[id] = { hv: '', ten: String(t).trim(), cv: '', anh: '', nhom: '' }; return id; }); };
     return { thu: ['Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu'][i], sang: ds(x && x.sang), chieu: ds(x && x.chieu) };
   });
+  if (Array.isArray(d.hoi)) {
+    HOI_CG = d.hoi.filter(function(h){ return h && String(h.tu || '').trim() && (String(h.traLoi || '').trim() || String(h.nhom || '').trim()); }).slice(0, 300)
+      .map(function(h){ return { mau: String(h.mau || '').slice(0, 120), tu: String(h.tu).slice(0, 600), traLoi: String(h.traLoi || '').slice(0, 1200), nhom: String(h.nhom || '').slice(0, 120) }; });
+  }
   BAC_SI = bs;
   LICH_CG.tu = d.tu; LICH_CG.den = d.den; LICH_CG.ngay = ngay;
   if (d.bacSi.some(function(b){ return b && String(b.nhom || '').trim(); })) {
     NHOM_CG.forEach(function(g){ g.bs = Object.keys(bs).filter(function(id){ return coTu(nCG(bs[id].nhom), GOC_NHOM_CG[g.id] || []); }); });
   }
   renderCG();
+  veChipCG();
   return true;
 }
 function taiLichCG(){
@@ -1471,6 +1511,7 @@ var CAU_HINH = {
   LINK_GOOGLE_FORM: 'https://docs.google.com/forms/d/e/1FAIpQLSe0HT61jLVTKoyPQmqbx_SNO3Qzi9vy1e3IqXcXk2k9hnyKNQ/viewform?usp=pp_url&entry.672578499=HL&entry.920903745=CHUDE&entry.561855740=NOIDUNG&entry.286356275=SDT'
 };
 taiLichCG();
+setInterval(taiLichCG, 15 * 60 * 1000);
 function googleForm(){
   try {
     var u = new URL(CAU_HINH.LINK_GOOGLE_FORM); var map = {};
@@ -1754,6 +1795,8 @@ document.getElementById('gy-form').addEventListener('submit', function(e){
   function rule(q){
     var n = norm(q);
     if (has(n, SOS)) return { sos: true, text: 'Nếu bé đang có dấu hiệu nặng như co giật, khó thở, tím tái, li bì, sốt cao kèm chấm đỏ hay chảy máu: phụ huynh đưa bé ngay đến Khoa Cấp cứu, không cần lấy số khám. Khoa hoạt động 24/24, điện thoại 0292 3748 356. Bé nguy kịch mà gia đình không tự đưa đi được thì gọi 115.', go: { href: '#cap-cuu', label: 'Xem các dấu hiệu cần cấp cứu' } };
+    var hCG = timHoiCG(q);
+    if (hCG) return { text: (hCG.traLoi ? hCG.traLoi.replace(/:\s*$/, '.') : 'Phụ huynh xem bác sĩ phù hợp ở mục Bác sĩ chuyên gia.') + (hCG.nhom ? ' Danh sách bác sĩ và lịch khám xem ở mục Bác sĩ chuyên gia.' : ''), go: hCG.nhom ? { href: '#cg-tuvan', label: 'Xem bác sĩ phù hợp' } : undefined };
     if (has(n, ['giuong','phong dich vu','phong yeu cau','phong rieng','nam vien','noi tru','nhap vien','phong vip'])) return { text: 'Khi bé cần nằm viện, gia đình có thể đăng ký phòng nội trú theo yêu cầu: báo nhân viên quầy tiếp nhận hoặc điều dưỡng khoa, ký đơn đăng ký rồi nhận phòng. Bé có thẻ BHYT vẫn được BHYT chi trả theo quy định, gia đình trả phần chênh lệch tiền giường. Giá và số phòng còn trống, phụ huynh hỏi tổng đài 0292 3748 356.', go: { href: '#giuong-tyc', label: 'Xem phòng nội trú theo yêu cầu' } };
     var cgIds = Object.keys(BAC_SI).filter(function(id){ var w = norm(BAC_SI[id].ten).trim().split(' '); return n.indexOf(' ' + w.slice(-2).join(' ') + ' ') !== -1; });
     if (cgIds.length || has(n, ['chuyen gia','truong khoa','pho giam doc','lich bac si','bac si nao','bac si gioi','lich kham bac si','kham voi bac si','bac si truong'])) {
