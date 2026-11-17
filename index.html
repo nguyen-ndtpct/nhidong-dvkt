@@ -599,7 +599,6 @@ a[href^="tel:"]:not([class]),.nw{white-space:nowrap}
 <span class="dot" style="left:20%;top:88%;width:3%;aspect-ratio:1;background:#9fd8ff"></span>
 <span class="sticker" style="left:50%;top:9%;--r:-4deg;animation-delay:.25s">Tim mạch</span>
 <span class="sticker" style="left:86%;top:35%;--r:5deg;animation-delay:.35s;background:var(--sun)">Tiêu hóa</span>
-<span class="sticker" style="left:84%;top:68%;--r:-3deg;animation-delay:.45s">Gây mê hồi sức</span>
 <span class="sticker" style="left:50%;top:92%;--r:3deg;animation-delay:.55s;background:#ffd9c7">Ngoại nhi</span>
 <span class="sticker" style="left:15%;top:70%;--r:4deg;animation-delay:.65s;background:#d6e4ff">Mắt, TMH, RHM</span>
 <span class="sticker" style="left:15%;top:34%;--r:-5deg;animation-delay:.75s">Chỉnh hình</span>
@@ -686,11 +685,6 @@ a[href^="tel:"]:not([class]),.nw{white-space:nowrap}
 <span class="blob" style="background:var(--green-soft)" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1f2a5c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
 <h3>Mắt, Tai Mũi Họng, Răng Hàm Mặt</h3><span class="khoa">Khoa Ba Chuyên khoa</span>
 <p>Ba chuyên khoa khám trong cùng một khu, phụ huynh không phải đi nhiều nơi.</p>
-</article>
-<article>
-<span class="blob" style="background:var(--lilac)" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1f2a5c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></span>
-<h3>Gây mê và hồi sức</h3><span class="khoa">Khoa Gây mê hồi sức</span>
-<p>Gây mê và theo dõi hồi sức riêng cho trẻ trong phẫu thuật, thủ thuật, nội soi.</p>
 </article>
 </div>
 <p class="note">Danh mục kỹ thuật chi tiết và giá dịch vụ: [BỔ SUNG SAU KHI ĐƯỢC DUYỆT NỘI DUNG]</p>
@@ -1826,7 +1820,7 @@ document.getElementById('gy-form').addEventListener('submit', function(e){
     if (has(n, ['dia chi','o dau','duong di','duong den','ban do','cho nao','gui xe','toi benh vien','den benh vien'])) return { text: 'Bệnh viện Nhi đồng TP. Cần Thơ ở 345 Nguyễn Văn Cừ, phường An Bình, TP. Cần Thơ.', go: { href: 'https://www.google.com/maps/search/?api=1&query=B%E1%BB%87nh+vi%E1%BB%87n+Nhi+%C4%91%E1%BB%93ng+C%E1%BA%A7n+Th%C6%A1', label: 'Mở chỉ đường Google Maps' } };
     if (has(n, ['dat hen','dat lich','medpro','hen kham','so dien thoai','tong dai','lien he','hotline','goi dien'])) return { text: 'Đặt khám: tổng đài 1900 2115 hoặc ứng dụng Medpro. Tổng đài bệnh viện và cấp cứu: 0292 3748 356.', go: { href: '#lien-he', label: 'Xem thông tin liên hệ' } };
     if (has(n, ['gop y','phan nan','khieu nai','phan anh','danh gia'])) return { text: 'Phụ huynh gửi góp ý ở Hộp thư góp ý trên trang này. Việc cần giải quyết gấp, gọi tổng đài 0292 3748 356.', go: { href: '#gop-y', label: 'Mở hộp thư góp ý' } };
-    if (has(n, ['ky thuat','chuyen khoa','khoa nao','tieu hoa',' kham mat',' mat ','tai mui hong',' rang ','xuong','chinh hinh'])) return { text: 'Các kỹ thuật chuyên sâu cho trẻ: thông tim can thiệp (Nội Tim mạch), nội soi dạ dày (Nội Tiêu hóa), phẫu thuật ngoại nhi (Ngoại tổng hợp), xương khớp trẻ em (Chấn thương chỉnh hình), Mắt – Tai Mũi Họng – Răng Hàm Mặt (Ba Chuyên khoa), gây mê hồi sức nhi.', go: { href: '#dich-vu', label: 'Xem các kỹ thuật' } };
+    if (has(n, ['ky thuat','chuyen khoa','khoa nao','tieu hoa',' kham mat',' mat ','tai mui hong',' rang ','xuong','chinh hinh'])) return { text: 'Các kỹ thuật chuyên sâu cho trẻ: thông tim can thiệp (Nội Tim mạch), nội soi dạ dày (Nội Tiêu hóa), phẫu thuật ngoại nhi (Ngoại tổng hợp), xương khớp trẻ em (Chấn thương chỉnh hình), Mắt – Tai Mũi Họng – Răng Hàm Mặt (Ba Chuyên khoa).', go: { href: '#dich-vu', label: 'Xem các kỹ thuật' } };
     if (has(n, [' chao ','hello',' alo ','xin chao',' hi '])) return { text: 'Chào phụ huynh. Phụ huynh cần hỏi về khám BHYT, khám dịch vụ, gói khám hay đường đến bệnh viện?' };
     if (has(n, ['thuoc','uong gi',' bi gi','benh gi',' chua ','dieu tri',' lieu ',' sot',' ho ',' ho khan','tieu chay',' non ',' dau '])) return { text: 'Mình không thể tư vấn bệnh hay thuốc qua đây. Phụ huynh nên đưa bé đến khám để bác sĩ thăm khám trực tiếp. Nếu bé có dấu hiệu nặng, đưa ngay đến Khoa Cấp cứu (0292 3748 356).', go: { href: '#cap-cuu', label: 'Xem dấu hiệu cần cấp cứu' } };
     return { text: 'Mình chưa có thông tin cho câu hỏi này. Phụ huynh có thể hỏi về giờ khám, khám BHYT, khám dịch vụ, gói khám, chuyển tuyến, địa chỉ, hoặc gọi tổng đài 1900 2115 để được hỗ trợ.' };
@@ -1834,7 +1828,7 @@ document.getElementById('gy-form').addEventListener('submit', function(e){
 
   function knowledge(){
     var t = 'LIÊN HỆ: Đặt khám tổng đài 1900 2115 hoặc ứng dụng Medpro. Tổng đài bệnh viện 0292 3748 356. Khoa Cấp cứu hoạt động 24/24. Email bvnhidong@cantho.gov.vn. Khám BHYT: thứ Hai đến thứ Sáu 7:00–11:00 và 13:00–17:00, thứ Bảy 7:00–11:00. Địa chỉ 345 Nguyễn Văn Cừ, phường An Bình, TP. Cần Thơ. Khám theo yêu cầu 7:00–21:00 mọi ngày kể cả lễ Tết. Gói khám: giờ hành chính, không áp dụng BHYT.\n';
-    t += 'PHÒNG NỘI TRÚ THEO YÊU CẦU: ' + LOAI_PHONG.map(function(r){ return r.ten + ' – ' + r.moTa; }).join('; ') + '. Chi phí: ' + CHI_PHI_GIUONG + '\n' + 'KỸ THUẬT: thông tim can thiệp (Khoa Nội Tim mạch); nội soi dạ dày (Nội Tiêu hóa); phẫu thuật ngoại nhi (Ngoại tổng hợp); xương khớp trẻ em (Chấn thương chỉnh hình); Mắt, Tai Mũi Họng, Răng Hàm Mặt (Ba Chuyên khoa); gây mê hồi sức.\n';
+    t += 'PHÒNG NỘI TRÚ THEO YÊU CẦU: ' + LOAI_PHONG.map(function(r){ return r.ten + ' – ' + r.moTa; }).join('; ') + '. Chi phí: ' + CHI_PHI_GIUONG + '\n' + 'KỸ THUẬT: thông tim can thiệp (Khoa Nội Tim mạch); nội soi dạ dày (Nội Tiêu hóa); phẫu thuật ngoại nhi (Ngoại tổng hợp); xương khớp trẻ em (Chấn thương chỉnh hình); Mắt, Tai Mũi Họng, Răng Hàm Mặt (Ba Chuyên khoa).\n';
     t += 'PHÒNG KHÁM CHUYÊN GIA (lịch tuần ' + tuanCG() + ', sáng ' + LICH_CG.sang + ', chiều ' + LICH_CG.chieu + '): ' + LICH_CG.ngay.map(function(d){ var ten = function(ids){ return ids.map(function(id){ var b = BAC_SI[id]; return b.hv + ' ' + b.ten + ' (' + b.cv + ')'; }).join(', ') || 'không có'; }; return d.thu + ' sáng: ' + ten(d.sang) + '; chiều: ' + ten(d.chieu); }).join('. ') + '. Đăng ký khám chuyên gia: ' + SO_CG + ' trong giờ hành chính thứ Hai đến thứ Sáu, hoặc tại quầy thông tin Khoa Khám theo yêu cầu.' + (trangThaiCG().cu ? ' Lịch này đã qua tuần, cần gọi hỏi lịch mới.' : '') + '\n';
     t += 'GÓI KHÁM:\n' + GOI.map(function(g){ return '- ' + g.code + ' ' + g.ten + ' (' + g.tuoi + ', ' + g.soDv + ' dịch vụ' + (HIEN_GIA ? ', giá dự kiến ' + fmt(g.gia) : ', giá: liên hệ') + '). Dành cho ' + g.doiTuong + ' Gồm: ' + g.dv.map(function(d){ return d[1]; }).join(', ') + '. Làm thêm khi bác sĩ chỉ định: ' + (g.them.map(function(a){ return a[0] + ' (' + a[2] + ')'; }).join('; ') || 'không') + '.'; }).join('\n') + '\n';
     t += 'QUY TRÌNH:\n' + QT.map(function(q){ return '- ' + q.ten + ': ' + q.buoc.map(function(b, i){ return (i + 1) + ') ' + b[0] + ': ' + b[1]; }).join(' ') + ' Cần mang: ' + q.chuanBi.join('; ') + '. Lưu ý: ' + q.luuY; }).join('\n');
